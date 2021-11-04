@@ -1,0 +1,41 @@
+<app-publicheader></app-publicheader>
+<div class="container-fluid">
+    <div class='container p-lg-5 main row' style="padding: 0px 0px 0px 5px;">
+        <div class="col-sm-6 left ">
+            <form #rentallogin='ngForm' class=" p-lg-5 row" (ngSubmit)='login(rentallogin.value)'>
+                <div class="col-sm-6 input-m">
+                    <label for='email'>Email</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="email" class="form-control" name='email'  #email='ngModel' ngModel required>
+                    <div class="text-danger" *ngIf='email.errors&&(email.touched||email.dirty)'>
+                        <div *ngIf='email.errors.required'>Please enter the email</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='password'>Password</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="password" class="form-control" name='password' id='password' #password='ngModel' ngModel required>
+                    <div class="text-danger" *ngIf='password.errors&&(password.touched||password.dirty)'>
+                        <div *ngIf='password.errors.required'>Please enter the password</div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center input-m">
+                <input type='submit' class="btn btn-primary" value="Login" [disabled]='!rentallogin.valid'>
+                <div [class]='classname'  style="margin-bottom: 5px;">{{serverresponse}}</div>
+           
+                <p>Don't have an account?<a routerLink='/rental/signup'>Register here</a>|<a routerLink='/rental/forgotpassword'>Forgot password?</a></p>
+                
+                
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6 "style='padding:0px;'>
+            <img class="img-fluid" style='margin:0px;' width='100%' src='../../../assets/images/banner22.jpg'>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
+

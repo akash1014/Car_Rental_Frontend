@@ -1,0 +1,215 @@
+<app-rentalheader></app-rentalheader>
+<div class="container-fluid">
+    <div class="container">
+        <div>
+            <div class="wthree_title_agile">
+            <h3> Edit <span>Car</span>  Details </h3>
+            </div>
+            <h3>Add cars
+            <i class="fa fa-plus-circle text-success " (click)='changeaction("add","")'  onclick='$("#areaModal").modal("show")'>
+            </i></h3>
+        </div>
+        <hr>
+        <div *ngIf='mycars.length>0 else notFound'>
+            <div *ngFor='let car of mycars;let i=index' class="row p-lg-3 col-card">
+                <div class="col-sm-8 row">
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">Srno:</label>{{i+1}}</p>
+                        <p><label class="font-weight-bold m-mycars">Brand:</label>{{car.brand}}</p>
+                        <p><label class="font-weight-bold m-mycars">CarModel:</label>{{car.model}}</p>
+                        <p><label class="font-weight-bold m-mycars">Carname:</label>{{car.car_name}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">Colour:</label>{{car.colour}}</p>
+                        <p><label class="font-weight-bold m-mycars">Condition:</label>{{car.car_condition}}</p>
+                        <p><label class="font-weight-bold m-mycars">Rent:</label>{{car.rent}}</p>
+                        <p><label class="font-weight-bold m-mycars">Insurancetill:</label>{{car.insurance_validitytill}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img-fluid img-thumbnail" height='750px' src='http://localhost:3000/{{car.coverphoto}}'>
+                </div>
+                <div class="col-sm-12">
+                    <p><label class="font-weight-bold m-mycars">Registration number:</label>{{car.reg_no}} </p>
+                    <p><label class="font-weight-bold m-mycars">Description :</label>{{car.description}}</p>
+                    
+                    <hr>
+                    <p class="text-right"><label class="font-weight-bold mr-lg-2">Controls:</label>
+                        <button type="button" class="btn btn-warning mr-lg-2" (click)='setform(car.mycar_id);changeaction("update",car.mycar_id)' onclick='$("#areaModal").modal("show")' > <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger mr-lg-2" (click)='changeaction("delete",car.mycar_id);update({})' > <i class="fas fa-trash-alt"></i></button>
+                    </p>
+                </div>
+            </div>            
+        </div>
+        <ng-template #notFound>
+            <div class="alert alert-danger"><h1>No Cars have been added yet!{{server_response}}</h1></div>
+            
+        </ng-template>
+        <div class="modal fade" id="car_pic_modal">
+            <div class="modal-dialog"  style='margin-left:17%;margin-top: 200px;margin-right: 17%;'>
+                <div class="modal-content"style="width:1000px; ">
+                    <div class="container row" style='min-height: 570px; '>
+                        <div class="modal-header"><strong class="close text-danger" data-dismiss="modal">X</strong></div>
+                        <div class="modal-body" style="min-height: 350px;">
+                            <div class="col-md-6" style='border-right: 2px dotted lightblue;'>
+                                <image-cropper style="border:1px solid black; min-height: 300px; "
+                                [imageChangedEvent]='imageChangedEvent'
+                                [maintainAspectRatio]='true'
+                                [aspectRatio]='5/6'
+                                [resizeToWidth]='200'
+                                (imageCropped)='imageCropped($event)'
+                                (imageLoaded)='imageLoaded()'
+                                (cropperReady)='cropperReady()'
+                                (loadImageFailed)='loadImageFailed()'
+                                >
+                                Select Image
+                                </image-cropper>
+                            </div>
+                            <div class="col-md-6 "  style="border:1px solid black; min-height: 300px; min-width:300px;">
+                                <img class="img-fluid" height='300px' [src]='croppedImage' />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="modal-footer text-center"><strong class="close" data-dismiss="modal"><button class="btn btn-warning" style='background-color: orange;'>Done</button></strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="areaModal">
+            <div class="modal-dialog" style='margin-left:17%;margin-top: 30px;margin-right: 17%;'>
+                <div class="modal-content" style="width:1000px; ">
+                    <div class="modal-header " id ="modal_header"><h2 style='text-align:center;'>{{Formhead}}</h2></div>
+                    <hr>
+                    <div class="modal-body " >
+                        <form #carform='ngForm' class="row " (submit)='update(carform.value)'>
+                            <div class="col-sm-6 input-m">
+                                <label for='brand' >Brand:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='text' name='brand' required #brand='ngModel' [(ngModel)]='car_object.brand' class="form-control">
+                                <div  class='text-danger' *ngIf='brand.invalid &&(brand.dirty || brand.touched)'>
+                                    <div *ngIf='brand.errors&&brand.errors.required'>Please enter the Brand of the car</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='model' >Model:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='text' name='model' required #model='ngModel' [(ngModel)]='car_object.model' class="form-control">
+                                <div  class='text-danger' *ngIf='model.invalid &&(model.dirty || model.touched)'>
+                                    <div *ngIf='model.errors&&model.errors.required'>Please enter the model of the car</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='colour' >Colour:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='text' name='colour' required #colour='ngModel' [(ngModel)]='car_object.colour' class="form-control">
+                                <div  class='text-danger' *ngIf='colour.invalid &&(colour.dirty || colour.touched)'>
+                                    <div *ngIf='colour.errors&&colour.errors.required'>Please enter the colour of vehicle</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='condition' >Condition:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <select type='text' name='condition' required #condition='ngModel' [(ngModel)]='car_object.condition' class="form-control">
+                                    <option value=''>Select the condition</option>
+                                    <option value='poor'>1-poor</option>
+                                    <option value='bad'>2-bad</option>
+                                    <option value='good'>3-good</option>
+                                    <option value='verygood'>4-verygood</option>
+                                    <option value='excellent'>5-excellent</option>
+                                </select>
+                                <div  class='text-danger' *ngIf='condition.invalid &&(condition.dirty || condition.touched)'>
+                                    <div *ngIf='condition.errors&&condition.errors.required'>Please enter condition of vehicle</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='description' >Description:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <textarea class="form-control" name='description' #description='ngModel' [(ngModel)]='car_object.description'></textarea>
+                                <div  class='text-danger' *ngIf='description.invalid &&(description.dirty || description.touched)'>
+                                    <div *ngIf='description.errors&&description.errors.required'>Please enter the decription of vehicle</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 input-m">
+                                <label for='photo' >Cover Photo:</label>
+                            </div>
+                            <div class="col-sm-12 row input-m">
+                                <div class="col-md-6" style='border-right: 2px dotted lightblue;'>
+                                    <image-cropper style="border:1px solid black; min-height: 300px; "
+                                    (click)='photo.click()'
+                                    [imageChangedEvent]='imageChangedEvent'
+                                    [maintainAspectRatio]='true'
+                                    [aspectRatio]='12/7'
+                                    [resizeToWidth]='300'
+                                    (imageCropped)='imageCropped($event)'
+                                    (imageLoaded)='imageLoaded()'
+                                    (cropperReady)='cropperReady()'
+                                    (loadImageFailed)='loadImageFailed()'
+                                    >
+                                    Select Image
+                                    </image-cropper>
+                                </div>
+                                <div class="col-md-6" style="border:1px solid black; min-height: 300px; min-width:250px;">
+                                    <img class="img-fluid"  [src]='croppedImage' />
+                                </div>
+                                <input type='file' name='photo' style=' display: none;' required #photo (change)='fileChangeEvent($event)'>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='reg_no' >Registration Number:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='text' name='reg_no' required #reg_no='ngModel' [(ngModel)]='car_object.reg_no' class="form-control">
+                                <div  class='text-danger' *ngIf='reg_no.invalid &&(reg_no.dirty || reg_no.touched)'>
+                                    <div *ngIf='reg_no.errors&&reg_no.errors.required'>Please enter the registration number</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='insurance_validtill' >Insurance validity:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='date'  name='insurance_validtill' required #insurance_validtill='ngModel'
+                                [(ngModel)]='car_object.insurance_validitytill' class="form-control">
+                                <div  class='text-danger' *ngIf='insurance_validtill.invalid &&(reg_no.dirty || insurance_validtill.touched)'>
+                                    <div *ngIf='insurance_validtill.errors&&insurance_validtill.errors.required'>enter the insurance validity last date</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='car_name' >Car name:</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='text' name='car_name' required #car_name='ngModel' [(ngModel)]='car_object.car_name' class="form-control">
+                                <div  class='text-danger' *ngIf='car_name.invalid &&(car_name.dirty || car_name.touched)'>
+                                    <div *ngIf='car_name.errors&&car_name.errors.required'>Please enter car name</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <label for='rent' >Rent (per day basis):</label>
+                            </div>
+                            <div class="col-sm-6 input-m">
+                                <input type='number' name='rent' required #rent='ngModel' [(ngModel)]='car_object.rent' class="form-control">
+                                <div  class='text-danger' *ngIf='rent.invalid &&(rent.dirty || rent.touched)'>
+                                    <div *ngIf='rent.errors&&rent.errors.required'>Please enter the rent of vehicle on per day basis</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" [value]='Formbtn' class="btn btn-warning" [disabled]='!carform.valid'>
+                            </div>
+                            <div class="col-sm-8 offset-2">
+                                <div *ngIf="server_response" [class]='classname '>{{server_response}}</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    <strong class="close text-danger" data-dismiss="modal">close</strong>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,70 @@
+<app-adminheader></app-adminheader>
+
+<div class="container-fluid">
+    <div class="container">
+        <div>
+            <h3>Edit city details<i class="fa fa-plus-circle text-success " (click)='changeaction("add","")' onclick='$("#cityModal").modal("show")'></i></h3>
+        </div><hr>
+        <div class='table-responsive'>
+            <table *ngIf='cities.length>0 else notFound' class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Srno</th>
+                        <th>Cityname</th>
+                        <th>Postalcode</th>
+                        <th colspan="2">Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let city of cities;let i=index'>
+                        <td>{{i+1}}</td>
+                        <td>{{city.cityname}}</td>
+                        <td>{{city.postalcode}}</td>
+                        <td><button type="button" class="btn btn-warning" (click)='changeaction("update",city.cityid);seteditform(city.cityname,city.postalcode)' onclick='$("#cityModal").modal("show")' > <i class="fas fa-edit"></i></button></td>
+                        <td><button type="button" class="btn btn-danger" (click)='changeaction("delete",city.cityid);editcity({})'> <i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #notFound>
+                <div class="alert alert-danger">{{serveresponse}}</div>
+            </ng-template>
+        </div>
+        <div class="modal fade" id="cityModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" id ="modal_header"><h2 style='text-align:center;'>{{Formhead}}</h2></div>
+                    <div class="modal-body ">
+                        <form #cityform='ngForm' (ngSubmit)='editcity(cityform.value)'>
+                            <div class=" form-group">
+                                <label for='cityname' >City Name:</label><label class="text-danger">*</label>
+                                <input type='text' name='cityname' id='cityname' #cityname='ngModel' [(ngModel)]='Cityname'  class="form-control" required>
+                                <div  class='text-danger' *ngIf='cityname.invalid &&(cityname.dirty || cityname.touched)'>
+                                    <div *ngIf='cityname.errors&&cityname.errors.required'>Please enter the city name</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='postalcode' >Postalcode:</label><label class="text-danger">*</label>
+                                <input type='text'required maxlength="6" minlength="6" name='postalcode' #postalcode='ngModel' [(ngModel)] ='Postalcode' class="form-control" >
+                                <div  class='text-danger ' *ngIf='postalcode.invalid &&(postalcode.dirty || postalcode.touched)'>
+                                    <div *ngIf='postalcode.errors&&postalcode.errors.required'>Please enter the postalcode</div>
+                                    <div *ngIf='postalcode.errors&&postalcode.errors.minlength'>Please enter a valid postalcode</div>
+                                </div>
+                            </div>
+                            <div class="form-group  text-center">
+                                <input type="submit" [value]='Formbtn' class="btn btn-warning" [disabled]='!cityform.valid'>
+
+                            </div>
+                            <div class="alert alert-success" *ngIf='serveresponse.length>0'>{{serveresponse}}</div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    <strong class="close text-danger" data-dismiss="modal">close</strong>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,145 @@
+<app-userheader></app-userheader>
+<div class="container-fluid" style='background-color: rgba(128, 128, 128, 0.144);'>
+    
+    <div class="container main" style='padding:15px 15px; background-color: white;' >
+        <div *ngIf='booking_details.length>0 else notFound'>
+            <div  class="p-lg-3 row">
+                <div class="col-sm-6 row">
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">{{booking_details[0].colour}} {{booking_details[0].brand}} {{booking_details[0].car_name}}</label></p>
+                        <p><label class="font-weight-bold m-mycars">Condition:  </label>  {{booking_details[0].car_condition}}</p>
+                        <p><label class="font-weight-bold m-mycars">Rent:  </label>  {{booking_details[0].rent}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">Model:  </label>  {{booking_details[0].model}}</p>
+                        <p><label class="font-weight-bold m-mycars">Insurancetill:  </label>  {{booking_details[0].insurance_validitytill}}</p>
+                    </div> 
+                    <div class="col-sm-12">
+                        <p><label class="font-weight-bold m-mycars">Registration number:  </label>  {{booking_details[0].reg_no}} </p>
+                        <h4 style="margin-top: 30px; font-weight: bold;">Rental provider details</h4>
+                        <p><label class="font-weight-bold m-mycars">Name:  </label>  {{booking_details[0].name}} </p>
+                        <p><label class="font-weight-bold m-mycars">Email:  </label>  {{booking_details[0].email}} </p>
+                        <p><label class="font-weight-bold m-mycars">MobileNo:  </label>  {{booking_details[0].mobileno}} </p>
+                        <p><label class="font-weight-bold m-mycars">Address:  </label>  {{booking_details[0].address}} </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <img class="img-fluid" style="border:1px solid rgba(0, 0, 255, 0.329)" width='100%' src='http://localhost:3000/{{booking_details[0].coverphoto}}'>
+                </div>
+                              
+                
+            </div>       
+            <div class="container row" style="padding: 20px 20px;">
+                <h3>Booking Details</h3>
+                <form #booking_user='ngForm' (submit)='create_booking(booking_user.value)'>
+                    <div class="col-sm-6">
+                        <label for='name' >Name:</label>
+                        <input type='text' readonly name='name' required #name='ngModel' [(ngModel)]='user_details.name' class="form-control m-input">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for='license' >License No:</label>
+                        <input type='text'  name='license' required #license='ngModel' ngModel class="form-control m-input">
+                        <div  class='text-danger' *ngIf='license.invalid &&(license.dirty || license.touched)'>
+                            <div *ngIf='license.errors&&license.errors.required'>Please enter your license number</div>
+                        </div>
+                    </div>
+                
+                    <div class="col-sm-6">
+                        <label for='start_date' >From:</label>
+                        <input type='date'  name='start_date' required #start_date='ngModel' [(ngModel)]='from_date'
+                        min="{{min_start_date|date:'yyyy-MM-dd'}}"  class="form-control m-input" (change)='end_change_date(start_date.value)'>
+                        <div  class='text-danger' *ngIf='start_date.invalid &&(start_date.dirty || start_date.touched)'>
+                            <div *ngIf='start_date.errors&&start_date.errors.required'>Please select booking start date</div>
+                        </div>
+                        <label for='end_date' >To:</label>
+                        <input type='date'  name='end_date' required #end_date='ngModel' [(ngModel)]='enddate' (change)='from_set()' 
+                        min="{{min_end_date|date:'yyyy-MM-dd'}}" class="form-control m-input">
+                        <div  class='text-danger' *ngIf='end_date.invalid &&(end_date.dirty || end_date.touched)'>
+                            <div *ngIf='end_date.errors&&end_date.errors.required'>Please select booking end date</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        
+                            <label for='city_id' >City:</label>
+                            <select type='text' name='city_id' required  #city_id='ngModel' ngModel class="form-control" (change)='getareas(city_id.value)'>
+                                <option class="form-control" value=''>Select the city</option>
+                                <option *ngFor='let city of cities' class='form-control' value='{{city.city_id}}'>{{city.cityname}}</option>
+                            </select>
+                            <div  class='text-danger' *ngIf='city_id.invalid &&(city_id.dirty || city_id.touched)'>
+                                <div *ngIf='city_id.errors&&city_id.errors.required'>Please select the city</div>
+                            </div>
+                        
+                        
+                            <label for='area_id' >Area:</label>
+                            <select type='text' name='area_id' required  #area_id='ngModel' ngModel class="form-control">
+                                <option class="form-control" value=''>Select the Area</option>
+                                <option *ngFor='let area of areas' class='form-control' value='{{area.areaid}}'>{{area.areaname}}</option>
+                            </select>
+                            <div  class='text-danger' *ngIf='area_id.invalid &&(area_id.dirty || area_id.touched)'>
+                                <div *ngIf='area_id.errors&&area_id.errors.required'>Please select the area</div>
+                            </div>
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <label for='aadhar_no'>Aadhar Number:</label>
+                        <input type="text" class="form-control m-input" name='aadhar_no' #aadhar_no='ngModel' ngModel maxlength="12" minlength="12">
+                        <div class="text-danger" *ngIf='aadhar_no.errors&&(aadhar_no.touched||aadhar_no.dirty)'>
+                            <div *ngIf='aadhar_no.errors.required'>Please enter Aadhar card number</div>
+                            <div *ngIf='aadhar_no.errors.minlength'>Please enter a valid Aadhar number</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12 row col-card" style="background-color: whitesmoke; margin-top: 20px; " *ngIf='show_transaction'>
+                        <div class="col-sm-8 text-right font-weight-bold">
+                           <b><h4>Rent Per Day:</h4></b>
+                        </div>
+                        <div class="col-sm-4 font-weight-bold" style="border-left: 2px solid #41413eaf;">
+                            <h5>{{booking_details[0].rent}}</h5>
+                        </div>
+                        <div><hr></div>
+                        <div class="col-sm-8 text-right font-weight-bold">
+                            <b><h4>No of days:</h4></b>
+                        </div>
+                        <div class="col-sm-4 font-weight-bold" style="border-left: 2px solid #41413eaf;">
+                            <h5>{{NO_OF_DAYS}}</h5>
+                        </div>
+                        <div class="col-sm-8 text-right font-weight-bold">
+                           <b><h4>GST 13%:</h4></b>
+                        </div>
+                        <div class="col-sm-4 font-weight-bold" style="border-left: 2px solid #41413eaf;">
+                            <h5>{{GST}}</h5>
+                        </div>
+                        <div class="col-sm-8 text-right font-weight-bold">
+                            <b><h4>Total:</h4></b>
+                        </div>
+                        <div class="col-sm-4 font-weight-bold" style="border-left:2px solid #41413eaf;">
+                            <h5>{{total}}</h5>
+                        </div>
+                        <div><hr></div>
+                        <div class="col-sm-8 text-right font-weight-bold">
+                           <b><h4>Grand Total:</h4></b>
+                        </div>
+                        <div class="col-sm-4 font-weight-bold">
+                            <h4>{{grandtotal}}</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group  text-center col-sm-12" style="margin-top: 20px;">
+                        <input type="submit" value='Create booking' class="btn btn-warning" [disabled]='!booking_user.valid'>
+                        <div class='alert alert-info'><h3>{{server_response}}</h3></div>
+                    </div>
+                    
+                </form>
+               
+                
+                
+            </div>     
+        </div>
+        <ng-template #notFound>
+            <div class="alert alert-danger"><h1>No Cars have been added yet!</h1></div>
+            
+        </ng-template>
+    </div>
+    
+</div>
+<app-footer></app-footer>

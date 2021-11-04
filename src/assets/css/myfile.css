@@ -1,0 +1,37 @@
+.input-m {
+   margin-top: 5px;
+   margin-bottom: 5px; 
+}
+.container {
+    width:80%;
+    margin:auto;
+    padding: 7px 7px;
+}
+.container-fluid{
+    padding: 10px 10px;
+}
+
+.left {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    border-right: 1px solid grey;
+}
+
+.main {
+    box-shadow: 2px 2px 3px black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 5px;
+}
+.main-no-shadow{
+    
+    box-shadow: 2px 2px 3px grey;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px 20px;
+}
+.m-mycars{
+    margin-top: 4px  !important;
+    margin-bottom: 4px !important;
+}

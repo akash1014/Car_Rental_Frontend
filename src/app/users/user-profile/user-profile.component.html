@@ -1,0 +1,85 @@
+<app-userheader></app-userheader>
+
+<div class="about" id="about">
+    <div class="container">
+     <div class="inner_w3l_agile_grids">
+        <div class="modal fade" id="areaModal">
+            <div class="modal-dialog"  style='margin-left:17%;margin-top: 20px;margin-right: 17%; '>
+                <div class="modal-content"style="width:1000px; background-color: #d1d1fc;">
+                    <div class="container row" style='min-height: 570px; '>
+                        <div class="modal-header"><strong class="close text-danger" data-dismiss="modal">X</strong></div>
+                        <div class="modal-body" style="min-height: 350px;">
+                            <div class="col-md-6" style='border-right: 2px dotted lightblue;'>
+                                <image-cropper style="border:1px solid black; min-height: 300px; "
+                                (click)='image.click()'
+                                [imageChangedEvent]='imageChangedEvent'
+                                [maintainAspectRatio]='true'
+                                [aspectRatio]='5/6'
+                                [resizeToWidth]='200'
+                                (imageCropped)='imageCropped($event)'
+                                (imageLoaded)='imageLoaded()'
+                                (cropperReady)='cropperReady()'
+                                (loadImageFailed)='loadImageFailed()'
+                                >
+                                Select Image
+                                </image-cropper>
+                            </div>
+                            <div class="col-md-6 "  style="border:1px solid black; min-height: 300px; min-width:300px;">
+                                <img class="img-fluid" height='300px' [src]='croppedImage' />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="modal-footer text-center"><strong class="close" data-dismiss="modal"><button class="btn btn-warning" style='background-color: orange;'>Done</button></strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 about-right-w3layouts">
+            <div class="wthree_title_agile two">
+                <h3>Edit <span>Profile</span></h3>
+            </div>
+            <div class="main-no-shadow " >
+
+            <form class="row p-lg-3 "  #editprofile='ngForm' (ngSubmit)='editProfile(editprofile.value)'>  
+                <div class="profile-selector" onclick='$("#areaModal").modal("show")'  [style]='image_url'>
+                    <input type="file" style=' display: none; '#image (change)='fileChangeEvent($event)' >
+                    <button class='profile-button'><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label >Gender:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <select class='form-control' name='gender' #gender='ngModel' [(ngModel)]='user_details.gender'>
+                        <option value=''>Not wish to disclose</option>
+                        <option calue='male'><i class="fa fa-male inputs" aria-hidden="true"></i>Male</option>
+                        <option calue='female'><i class="fa fa-female inputs" aria-hidden="true"></i><i class="fa fa-female inputs" aria-hidden="true"></i>Female</option>
+                    </select>
+                </div> 
+                <div class="col-sm-6 input-m">
+                    <label for='address'>Address:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <textarea  class="form-control" name='address' #address='ngModel' [(ngModel)]='user_details.address' ></textarea>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='dob'>Date of birth:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="date"  class="form-control" name='dob' #dob='ngModel' [(ngModel)]='user_details.dob' >
+                </div>             
+                <div class=" col-sm-12 text-center">
+                    <input type='submit' width='150px' class="btn btn-primary" value='Update' >
+                    <div [class]='classname' *ngIf='server_response.length>0'>{{server_response}}</div>
+                    <hr>
+                    
+                </div>
+                
+                
+            </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

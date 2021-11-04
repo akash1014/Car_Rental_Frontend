@@ -1,0 +1,99 @@
+<app-publicheader></app-publicheader>
+<hr>
+<div class="container-fluid" style='background-color: rgba(128, 128, 128, 0.144);'>
+    
+    <div class="container main" style='padding:15px 15px; background-color: whitesmoke;' >
+        <div class="wthree_title_agile">
+            <h3> Rental <span>SignUp</span>  </h3>
+        </div>
+        <hr>
+        <form class="row p-lg-3 " #rentalsignup='ngForm' (ngSubmit)='signup(rentalsignup.value)'>
+            <div class="col-sm-4 input-m">
+                <label for='name'>Name:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="text" class="form-control" name='name' #name='ngModel' ngModel required>
+                <div class="text-danger" *ngIf='name.errors&&(name.touched||name.dirty)'>
+                        <div *ngIf='name.errors.required'>Please enter the name</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='address'>Address:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <textarea class="form-control" name='address' #address='ngModel' ngModel required></textarea>
+                <div class="text-danger" *ngIf='address.errors&&(address.touched||address.dirty)'>
+                    <div *ngIf='address.errors.required'>Please enter the address</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='mobileno'>Mobileno:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="text" class="form-control" name='mobileno' #mobileno='ngModel' ngModel required minlength='10' maxlength='10'>
+                <div class="text-danger" *ngIf='mobileno.errors&&(mobileno.touched||mobileno.dirty)'>
+                    <div *ngIf='mobileno.errors.required'>Please enter the mobileno</div>
+                    <div *ngIf='mobileno.errors.minlength'>Please enter a valid mobile no</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='email'>Email:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="email" class="form-control" name='email' #email='ngModel' ngModel required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                <div class="text-danger" *ngIf='email.errors&&(email.touched||email.dirty)'>
+                    <div *ngIf='email.errors.required'>Please enter the email</div>
+                    <div *ngIf='email.errors.pattern'>Please enter a valid email</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='gstin'>GSTIN:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="text" class="form-control" name='gstin' #gstin='ngModel' ngModel required minlength='15' maxlength='15'>
+                <div class="text-danger" *ngIf='gstin.errors&&(gstin.touched||gstin.dirty)'>
+                    <div *ngIf='gstin.errors.required'>Please enter the GSTIN number</div>
+                    <div *ngIf='gstin.errors.minlength'>Please enter a valid GSTIN</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='password'>Password:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="password" class="form-control" name='password' #password='ngModel' ngModel required>
+                <div class="text-danger" *ngIf='password.errors&&(password.touched||password.dirty)'>
+                    <div *ngIf='password.errors.required'>Please enter the password</div>
+                </div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='confirmpassword'>Confirm Password:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="password" class="form-control" name='confirmpassword' #confirmpassword='ngModel' ngModel 
+                required (blur)='passwordcheck(password.value,confirmpassword.value)'>
+                <div class="text-danger" *ngIf='confirmpassword.errors&&(confirmpassword.touched||confirmpassword.dirty)'>
+                    <div *ngIf='confirmpassword.errors.required'>Please enter the confirm password</div>
+                </div>
+                <div class="text-danger" *ngIf='!samepassword'>Enter the same password again</div>
+            </div>
+            <div class="col-sm-4 input-m">
+                <label for='aadhar_no'>Aadhar Number:</label>
+            </div>
+            <div class="col-sm-6 input-m">
+                <input type="text" class="form-control" name='aadhar_no' #aadhar_no='ngModel' ngModel maxlength="12" minlength="12">
+                <div class="text-danger" *ngIf='aadhar_no.errors&&(aadhar_no.touched||aadhar_no.dirty)'>
+                    <div *ngIf='aadhar_no.errors.required'>Please enter Aadhar card number</div>
+                    <div *ngIf='aadhar_no.errors.minlength'>Please enter a valid Aadhar number</div>
+                </div>
+            </div>
+            <div class=" col-sm-12 text-center">
+                <input type='submit' class="btn btn-primary" value='SignUp' [disabled]='!rentalsignup.valid'>
+                <div [class]='classname' *ngIf='serverresponse.length>0'>{{serverresponse}}</div>
+                <hr>
+                <p>Already have an account?<a routerLink='/rental/login'>login</a></p>
+            </div>
+            
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

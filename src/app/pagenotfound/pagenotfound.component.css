@@ -1,0 +1,58 @@
+
+
+.notFound {
+    width:60%;
+    margin:auto;
+    
+    
+    text-align: center;
+    color: red;
+    border:2px solid red;
+    border-radius: 5px;
+    
+    transition: width 1s,border 2s;
+}
+
+.notFound:hover {
+    border:6px solid rgb(247, 120, 120);
+    width:65%;
+}
+@keyframes animate {
+    from   { left:0px;  }
+    to { left:-100px; -webkit-box-reflect: right 10px;}
+  }
+img {
+    position:relative;
+    animation-name: animate;
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    transition: -webkit-box-reflect 2s;
+}
+body {
+    display: flex;
+}
+@keyframes bubble{
+    0% {transform: translate3d(0, 0, 0);}
+    10% {transform: translate3d(0, 10%, 0);}
+    20% {transform: translate3d(0, 20%, 0);}
+    30% {transform: translate3d(0, 30%, 0);}
+    40% {transform: translate3d(0, 40%, 0);}
+    50% {transform: translate3d(0, 50%, 0);}
+    60% {transform: translate3d(0, 60%, 0);}
+    70% {transform: translate3d(0, 70%, 0);}
+    80% {transform: translate3d(0, 80%, 0);}
+    90% {transform: translate3d(0, 90%, 0);}
+    100% {transform: translate3d(0,100%, 0);}
+}
+
+.bubble {
+    position: relative;
+    float:initial ;
+    font-size: 50px;
+    animation-name: bubble;
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}

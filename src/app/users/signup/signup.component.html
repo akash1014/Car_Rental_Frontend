@@ -1,0 +1,92 @@
+<app-userheader></app-userheader>
+
+<!-- about -->
+<div class="about" id="about">
+    <div class="container">
+     <div class="inner_w3l_agile_grids">
+        <div class="col-md-6 about-left-w3layouts" style='padding-top:200px;'>
+            <h6 class="sub">WELCOME TO OUR Rental Car</h6>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, rds which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+        </div>
+        <div class="col-md-6 about-right-w3layouts">
+            <div class="wthree_title_agile two">
+                <h3>User <span>Signup</span></h3>
+            </div>
+            <div class="main-no-shadow" >
+                <form class="row p-lg-3 "  #usersignup='ngForm' (ngSubmit)='signup(usersignup.value)'>
+                <div class="col-sm-6 input-m">
+                    <label for='name'>Name:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="text" class="form-control" name='name' #name='ngModel' ngModel required >
+                    <div class="text-danger" *ngIf='name.errors&&(name.touched||name.dirty)'>
+                            <div *ngIf='name.errors.required'>Please enter the name</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='email'>Email:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="email" class="form-control" name='email' #email='ngModel' ngModel required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                    <div class="text-danger" *ngIf='email.errors&&(email.touched||email.dirty)'>
+                        <div *ngIf='email.errors.required'>Please enter the email</div>
+                        <div *ngIf='email.errors.pattern'>Please enter a valid email</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='password'>Password:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="password" class="form-control" name='password' #password='ngModel' ngModel required>
+                    <div class="text-danger" *ngIf='password.errors&&(password.touched||password.dirty)'>
+                        <div *ngIf='password.errors.required'>Please enter the password</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='confirmpassword'>Confirm Password:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="password" class="form-control" name='confirmpassword' #confirmpassword='ngModel' ngModel 
+                    required (blur)='passwordcheck(password.value,confirmpassword.value)'>
+                    <div class="text-danger" *ngIf='confirmpassword.errors&&(confirmpassword.touched||confirmpassword.dirty)'>
+                        <div *ngIf='confirmpassword.errors.required'>Please enter the confirm password</div>
+                    </div>
+                    <div class="text-danger" *ngIf='!samepassword'>Enter the same password again</div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='address'>Address:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <textarea class="form-control" name='address' #address='ngModel' ngModel required></textarea>
+                    <div class="text-danger" *ngIf='address.errors&&(address.touched||address.dirty)'>
+                        <div *ngIf='address.errors.required'>Please enter the address</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='mobileno'>Mobileno:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="text" class="form-control" name='mobileno' #mobileno='ngModel' ngModel required minlength='10' maxlength='10'>
+                    <div class="text-danger" *ngIf='mobileno.errors&&(mobileno.touched||mobileno.dirty)'>
+                        <div *ngIf='mobileno.errors.required'>Please enter the mobileno</div>
+                        <div *ngIf='mobileno.errors.minlength'>Please enter a valid mobile no</div>
+                    </div>
+                </div>               
+                <div class=" col-sm-12 text-center">
+                    <input type='submit' width='150px' class="btn btn-primary" value='SignUp' [disabled]='!usersignup.valid'>
+                    <div [class]='classname' *ngIf='server_response.length>0'>{{server_response}}</div>
+                    <hr>
+                    <p>Already have an account?<a routerLink='/users/login'>login</a></p>
+                </div>
+                
+                
+            </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</div>
+<!--about-section-->
+
+<app-footer></app-footer>

@@ -1,0 +1,102 @@
+<app-rentalheader></app-rentalheader>
+<div class="container-fluid">
+    <div class="">
+        <div>
+        <h4>Daily Sales</h4>
+        </div><hr>
+        <div class='table-responsive'>
+           <table *ngIf='daily_Bills.length>0 else notFound' class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Srno</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>No Of Days</th>
+                        <th>License</th>
+                        <th>Aadhaar No</th>
+                        <th>Car Details</th>
+                        <th>Registration No</th>
+                        <th>Bill Date</th>
+                        <th>GST 13%</th>
+                        <th>GrandTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let booking of daily_Bills;let i=index'>
+                        <td>{{i+1}}</td>
+                        <td>{{booking.start_date}}</td>
+                        <td>{{booking.end_date}}</td>
+                        <td>{{booking.number_of_days}}</td>
+                        <td>{{booking.driving_license_number}}</td>
+                        <td>{{booking.aadhaar_number}}</td>
+                        <td>{{booking.model}} {{booking.brand}}  {{booking.car_name}} </td>
+                        <td>{{booking.reg_no}}</td>
+                        <td>{{booking.billdate}}</td>
+                        <td>{{booking.gst_percent}}</td>
+                        <td>{{booking.grandtotal}}</td>           
+                    </tr>
+                
+                </tbody>
+            </table>
+            <ng-template #notFound>
+                <div class="alert alert-danger">No records Found</div>
+                
+            </ng-template>
+        </div>      
+        <hr>
+        <div class="container">
+            <div class="search-bar">
+                <form class="form-inline" #search_form='ngForm' (submit)='getrecords(search_form.value)'>
+                    <div class="form-group " style="margin-left: 15px;">
+                        <label for='from' >From:</label>
+                        <input type='date' name='from' required  #from='ngModel' ngModel class="form-control " style="margin-left: 5px;"> 
+                    </div>
+                    <div class="form-group ml-lg-2" style="margin-left: 15px;">
+                        <label for='to' >To:</label>
+                        <input type='date' name='to' required  #to='ngModel' ngModel class="form-control " style="margin-left: 5px;">
+                    </div>
+                    <input type="submit" value='Search' class="btn btn-warning " style="margin-left: 20px;">
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class='table-responsive'>
+            <table *ngIf='sale_record_Bills.length>0 ' class="table table-striped table-bordered">
+                 <thead>
+                     <tr>
+                         <th>Srno</th>
+                         <th>Start Date</th>
+                         <th>End Date</th>
+                         <th>No Of Days</th>
+                         <th>License</th>
+                         <th>Aadhaar No</th>
+                         <th>Car Details</th>
+                         <th>Registration No</th>
+                         <th>Bill Date</th>
+                         <th>GST 13%</th>
+                         <th>GrandTotal</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <tr *ngFor='let booking of sale_record_Bills;let i=index'>
+                         <td>{{i+1}}</td>
+                         <td>{{booking.start_date}}</td>
+                         <td>{{booking.end_date}}</td>
+                         <td>{{booking.number_of_days}}</td>
+                         <td>{{booking.driving_license_number}}</td>
+                         <td>{{booking.aadhaar_number}}</td>
+                         <td>{{booking.model}} {{booking.brand}}  {{booking.car_name}} </td>
+                         <td>{{booking.reg_no}}</td>
+                         <td>{{booking.billdate}}</td>
+                         <td>{{booking.gst_percent}}</td>
+                         <td>{{booking.grandtotal}}</td>           
+                     </tr>
+                 
+                 </tbody>
+             </table>
+             
+         </div>     
+    </div>
+</div>
+<app-footer></app-footer>
+

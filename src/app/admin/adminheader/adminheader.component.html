@@ -1,0 +1,61 @@
+<!-- header -->
+<div class="header-w3l-agile">
+  <div class="header_left">
+    <ul>
+      <li><a href="mailto:akashoct204@gmail.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>akashoct204@gmail.com</a></li>
+      <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>+91 8427354514</li>
+    </ul>
+  </div>
+  <div class="header_right">
+        <div class="w3ls-social-icons">
+        <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+        <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+        <a class="pinterest" href="#"><i class="fa fa-google-plus"></i></a>
+        <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+        
+      </div>
+
+  </div>
+  <div class="clearfix"></div>
+</div>
+<!-- //header -->
+<div class="header-nav">
+  <nav class="navbar navbar-default">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <h1><a  routerLink='/'><span class="logo-c">Z</span><i class="fa fa-car" aria-hidden="true"></i>oomcar</a><p class="sub-cap">Drive to Any where</p></h1>
+      </div>
+      <!-- navbar-header -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink='/admin/home' class="hvr-underline-from-center active">Home</a></li>
+          <li><a routerLink='/admin/blacklist' class="hvr-underline-from-center active">Blacklist Cars</a></li>
+          <li><a routerLink='/admin/changepassword' class="hvr-underline-from-center scroll">changepassword</a></li>
+          <li >
+            <a class="hvr-underline-from-center scroll dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Edit-locations
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="hvr-underline-from-center scroll" routerLink='/admin/areas' >Areas</a></li>
+             <li><a class="hvr-underline-from-center scroll"  routerLink='/admin/cities' >Cities</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="hvr-underline-from-center scroll" href="#" *ngIf='loggedin' (click)="logout()"><i class="fa fa-fw fa-user"></i> Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+      <div class="clearfix"> </div>	
+    </nav>
+
+</div>
+
+
+
+

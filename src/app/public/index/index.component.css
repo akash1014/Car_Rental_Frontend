@@ -1,0 +1,7 @@
+.card-bottom {
+    text-align: center;
+    margin-top: 0px;
+    padding: 10px 3px;
+    background-color: rgba(194, 186, 186, 0.116);
+    box-shadow: 7px 7px 10px  3px rgba(128, 128, 128, 0.616);
+}

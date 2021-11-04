@@ -1,0 +1,46 @@
+<app-userheader></app-userheader>
+<div class="container-fluid" style='background-color: rgba(128, 128, 128, 0.144);'>
+    
+    <div class="container main" style='padding:15px 15px; background-color: whitesmoke;' >
+        <div *ngIf='booking_details.length>0 else notFound'>
+            <div  class="p-lg-3 row">
+                <div class="col-sm-6 row">
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">{{booking_details[0].colour}} {{booking_details[0].brand}} {{booking_details[0].car_name}}</label></p>
+                        <p><label class="font-weight-bold m-mycars">Condition:  </label>  {{booking_details[0].car_condition}}</p>
+                        <p><label class="font-weight-bold m-mycars">Rent:  </label>  {{booking_details[0].rent}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><label class="font-weight-bold m-mycars">Model:  </label>  {{booking_details[0].model}}</p>
+                        <p><label class="font-weight-bold m-mycars">Insurancetill:  </label>  {{booking_details[0].insurance_validitytill}}</p>
+                    </div> 
+                    <div class="col-sm-12">
+                        <p><label class="font-weight-bold m-mycars">Registration number:  </label>  {{booking_details[0].reg_no}} </p>
+                        <h4 style="margin-top: 30px; font-weight: bold;">Rental provider details</h4>
+                        <p><label class="font-weight-bold m-mycars">Name:  </label>  {{booking_details[0].name}} </p>
+                        <p><label class="font-weight-bold m-mycars">Email:  </label>  {{booking_details[0].email}} </p>
+                        <p><label class="font-weight-bold m-mycars">MobileNo:  </label>  {{booking_details[0].mobileno}} </p>
+                        <p><label class="font-weight-bold m-mycars">Address:  </label>  {{booking_details[0].address}} </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <img class="img-fluid" style="border:1px solid rgba(0, 0, 255, 0.329)" width='100%' src='http://localhost:3000/{{booking_details[0].coverphoto}}'>
+                </div>
+                <hr>
+                <div class="col-sm-12 text-center">
+                    <button class="btn btn-warning input-m" style='margin:5px 20px;' (click)='book(booking_details[0].mycar_id)'>Book Now</button>
+                </div> 
+                
+                
+            </div>   
+                    
+        </div>
+        <ng-template #notFound>
+            <div class="alert alert-danger"><h1>No Cars have been added yet!</h1></div>
+            
+        </ng-template>
+    </div>
+    
+</div>
+    <app-search-cars (car_id_update)='getUpdatedCarId($event)'></app-search-cars>
+<app-footer></app-footer>

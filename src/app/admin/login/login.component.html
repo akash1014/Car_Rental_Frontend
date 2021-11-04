@@ -1,0 +1,36 @@
+<app-publicheader></app-publicheader>
+<div style="padding-top: 30px;padding-bottom: 50px; background-color: rgb(231, 231, 231);">
+    <div class="container" style="box-shadow: 5px 5px 5px grey; padding: 0px; background-color: white;">
+        <div class="row" style="padding: 0px;">
+            <div class="col-sm-6" style="padding: 0px;">
+                <img src="./assets/images/g2.jpg" class="img-fluid" style="width: 100%;">
+            </div>
+            <div class="col-sm-6" style="padding-top: 30px;">
+                <h1 class="text-center">Admin Login</h1>
+                <form #adminlogin='ngForm' class="p-lg-5" (ngSubmit)='login(adminlogin.value)'>
+                    <div class="form-group">
+                        <label for='username'>Username</label>
+                        <input type="text" class="form-control" name='username' id='username' #username='ngModel' ngModel required>
+                        <div class="text-danger" *ngIf='username.errors&&(username.touched||username.dirty)'>
+                            <div *ngIf='username.errors.required'>Please enter the username</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for='password'>Password</label>
+                        <input type="password" class="form-control" name='password' id='password' #password='ngModel' ngModel required>
+                        <div class="text-danger" *ngIf='password.errors&&(password.touched||password.dirty)'>
+                            <div *ngIf='password.errors.required'>Please enter the password</div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                       <input type='submit' class="btn btn-primary" value="Login" [disabled]='!adminlogin.valid'>
+                       <div [class]="classname">{{serverresponse}}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<app-footer></app-footer>

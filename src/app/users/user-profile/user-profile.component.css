@@ -1,0 +1,19 @@
+.profile-selector{
+    margin:auto;
+    width: 200px;
+    height:200px;
+    border:2px solid grey;
+    border-radius: 50%;
+    text-align: center;
+    display:grid
+}
+.profile-button{
+    margin:auto;
+    opacity: 0.55;
+    border:1px solid rgb(224, 221, 221);
+}
+.inputs{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+

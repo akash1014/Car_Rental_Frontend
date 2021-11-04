@@ -1,0 +1,15 @@
+.search-bar{
+    width:95%;
+    background-color: rgb(247, 247, 247);
+    border-radius: 25px;
+    border:1px solid rgb(220, 220, 241);
+    padding: 10px 10px;
+}
+
+.card-bottom {
+    text-align: center;
+    margin-top: 0px;
+    padding: 10px 3px;
+    background-color: rgba(194, 186, 186, 0.575);
+    box-shadow: 7px 7px 10px  3px rgba(128, 128, 128, 0.616);
+}

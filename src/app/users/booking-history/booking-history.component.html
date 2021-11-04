@@ -1,0 +1,45 @@
+<app-userheader></app-userheader>
+<div class="container-fluid" style='background-color: rgba(128, 128, 128, 0.144);'>
+    
+    <div class="container main" style='padding:15px 15px; background-color: whitesmoke;' >
+        <div class="table-responsive" *ngIf='Booking_history.length>0 else elsepart'>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>Srno</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Car</th>
+                    <th>Reg Number</th>
+                    <th>City</th>
+                    <th>Area</th>
+                    <th>Provider Address</th>
+                    <th>Provider Mobile</th>
+                    <th>Provider Email</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let booking of Booking_history;let i=index'>
+                        <td>{{i+1}}</td>
+                        <td>{{booking.start_date}}</td>
+                        <td>{{booking.end_date}}</td>
+                        <td>{{booking.brand}} {{booking.car_name}}</td>
+                        <td>{{booking.reg_no}}</td>
+                        <td>{{booking.cityname}}</td>
+                        <td>{{booking.areaname}}</td>
+                        <td>{{booking.address}}</td>
+                        <td>{{booking.mobileno}}</td>
+                        <td>{{booking.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <ng-template #elsepart>
+            <div class="alert alert-info">
+                <h1>No Bookings Yet</h1>
+            </div>
+        </ng-template>
+    </div>
+    
+</div>
+    
+<app-footer></app-footer>

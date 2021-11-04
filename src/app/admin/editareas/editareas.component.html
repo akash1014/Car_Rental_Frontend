@@ -1,0 +1,69 @@
+<app-adminheader></app-adminheader>
+
+<div class="container-fluid">
+    <div class="container">
+        <div>
+            <h3>Edit Area details<i class="fa fa-plus-circle text-success " (click)='changeaction("add","")' onclick='$("#areaModal").modal("show")'></i></h3>
+        </div><hr>
+        <div class='table-responsive'>
+            <table *ngIf='areas.length>0 else notFound' class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Srno</th>
+                        <th>Area</th>
+                        <th>City Name</th>
+                        <th colspan="2">Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let area of areas;let i=index'>
+                        <td>{{i+1}}</td>
+                        <td>{{area.areaname}}</td>
+                        <td>{{area.cityname}}</td>
+                        <td><button type="button" class="btn btn-warning" (click)='changeaction("update",area.areaid);seteditform(area.areaname,area.cityid)' onclick='$("#areaModal").modal("show")' > <i class="fas fa-edit"></i></button></td>
+                        <td><button type="button" class="btn btn-danger" (click)="changeaction('delete',area.areaid);editarea({})"> <i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #notFound>
+                <div class="alert alert-danger">{{serveresponse}}</div>
+            </ng-template>
+        </div>
+        <div class="modal fade" id="areaModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header " id ="modal_header"><h2 style='text-align:center;'>{{Formhead}}</h2></div>
+                    <div class="modal-body ">
+                        <form #areaform='ngForm' (submit)='editarea(areaform.value)'>
+                            <div class=" form-group">
+                                <label for='areaname' >Area Name:</label>
+                                <input type='text' name='areaname' required #areaname='ngModel' [(ngModel)]='Areaname' class="form-control">
+                                <div  class='text-danger' *ngIf='areaname.invalid &&(areaname.dirty || areaname.touched)'>
+                                    <div *ngIf='areaname.errors&&areaname.errors.required'>Please enter the area name</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='cityid' >City:</label>
+                                <select type='text' name='cityid' required  #cityid='ngModel' [(ngModel)]='Cityid' class="form-control">
+                                    <option class="form-control" value=''>Select the city</option>
+                                    <option *ngFor='let city of cities' class='form-control' value='{{city.cityid}}'>{{city.cityname}}</option>
+                                </select>
+                                <div  class='text-danger' *ngIf='cityid.invalid &&(cityid.dirty || cityid.touched)'>
+                                    <div *ngIf='cityid.errors&&cityid.errors.required'>Please select the city</div>
+                                </div>
+                            </div>
+                            <div class="form-group  text-center">
+                                <input type="submit" [value]='Formbtn' class="btn btn-warning" [disabled]='!areaform.valid'>
+                            </div>
+                            <div *ngIf="serveresponse" class="alert alert-success">{{serveresponse}}</div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    <strong class="close text-danger" data-dismiss="modal">close</strong>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

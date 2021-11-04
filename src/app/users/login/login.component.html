@@ -1,0 +1,54 @@
+<app-publicheader></app-publicheader>
+
+<!-- about -->
+<div class="about" id="about">
+    <div class="container">
+     <div class="inner_w3l_agile_grids">
+        <div class="col-md-6 about-left-w3layouts" style='padding-top:100px;'>
+            <h6 class="sub">WELCOME TO ZoomCar</h6>
+            <p>We provide car rental services with collaboration of our Service providers.Easy steps and very tourist freindly.</p>
+        </div>
+        <div class="col-md-6 about-right-w3layouts">
+            <div class="wthree_title_agile two">
+                <h3>User <span>Login</span></h3>
+            </div>
+            <div class="main-no-shadow" >
+                <form class="row p-lg-3 "  #userlogin='ngForm' (ngSubmit)='login(userlogin.value)'>
+                <div class="col-sm-6 input-m">
+                    <label for='email'>Email:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="email" class="form-control" name='email' #email='ngModel' ngModel required>
+                    <div class="text-danger" *ngIf='email.errors&&(email.touched||email.dirty)'>
+                        <div *ngIf='email.errors.required'>Please enter the email</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <label for='password'>Password:</label>
+                </div>
+                <div class="col-sm-6 input-m">
+                    <input type="password" class="form-control" name='password' #password='ngModel' ngModel required>
+                    <div class="text-danger" *ngIf='password.errors&&(password.touched||password.dirty)'>
+                        <div *ngIf='password.errors.required'>Please enter the password</div>
+                    </div>
+                </div>              
+                <div class=" col-sm-12 text-center">
+                    <input type='submit' width='150px' class="btn btn-primary" value='Login' [disabled]='!userlogin.valid'>
+                    <div [class]='classname' *ngIf='server_response.length>0'>{{server_response}}</div>
+                    <hr>
+                    <p>Don't have an account?<a routerLink='/users/signup'>Register here</a></p>
+                    <hr>
+                    <p><a routerLink='/users/forgotpassword'>forgot password?</a></p>
+
+                </div>
+                
+                
+            </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</div>
+<!--about-section-->
+<app-footer></app-footer>
